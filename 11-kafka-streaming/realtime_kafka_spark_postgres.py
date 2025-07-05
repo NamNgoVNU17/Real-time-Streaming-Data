@@ -44,7 +44,6 @@ if __name__ == '__main__':
         .withColumn("day", f.dayofmonth("local_time_ts")) \
         .withColumn("hour", f.hour("local_time_ts"))
 
-    # Write Stream to PostgreSQL
     query = df_enriched.writeStream \
         .foreachBatch(lambda df, batch_id: write_to_postgres(df, batch_id, spark, pg_url,pg_props)) \
         .outputMode("append") \
