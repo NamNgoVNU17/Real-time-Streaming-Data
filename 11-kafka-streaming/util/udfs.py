@@ -46,7 +46,6 @@ def upsert_to_postgres(df: DataFrame, table_name: str, key_columns: list, pg_url
     temp_table = f"temp_{table_name}_{int(time.time())}"
     df.write.jdbc(pg_url, temp_table, mode="overwrite", properties=pg_props)
 
-    # Build UPSERT query
     cols = df.columns
     cols_str = ", ".join(cols)
     values_str = ", ".join([f"t.{c}" for c in cols])
